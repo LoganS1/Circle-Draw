@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    border: 0;
+}
+
+#clear {
+    font-size: 1.2em;
+    position: fixed;
+    width: 10%;
+    height: 50px;
+    top: 0;
+    left: 45%;
+    right: 45%;
+    outline: none;
+    transition: all 0.1s;
+}
+
+#clear:active {
+    background-color: darkgrey;
+}
+
+#instructions {
+    color: grey;
+    text-align: center;
+    position: fixed;
+    width: 45%;
+    height: 50px;
+    top: 15px;
+}
