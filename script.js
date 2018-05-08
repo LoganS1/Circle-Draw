@@ -1,5 +1,8 @@
 var clearBtn = document.getElementById("clear")
 var canvas = document.getElementById("canvas");
+var slider = document.getElementById("slider");
+var on = document.getElementById("on");
+var off = document.getElementById("off");
 var c = canvas.getContext("2d");
 var w = window,
     d = document,
@@ -10,9 +13,21 @@ var w = window,
 var mouseX;
 var mouseY;
 var drawOn = false;
+var wasOn = false;
+var radius = 16;
 
 canvas.height = y;
 canvas.width = x;
+
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+    toggleDraw();
+}
+
+function toggleDraw(){
+    drawOn = !drawOn;
+    on.classList.toggle("bold");
+    off.classList.toggle("bold");
+}
 
 function clear(){
     c.clearRect(0, 0, x, y);
@@ -21,12 +36,12 @@ function clear(){
 function draw(){
     c.beginPath();
     c.strokeStyle = "black";
-    c.arc(mouseX, mouseY, 20, 0, 2*Math.PI);
+    c.arc(mouseX, mouseY, radius, 0, 2*Math.PI);
     c.stroke();
 }
 
-canvas.addEventListener("click", function(click){
-    drawOn = !drawOn;
+canvas.addEventListener("click", function(){
+    toggleDraw();
 })
 
 document.addEventListener('mousemove', function(mouse){
@@ -37,9 +52,36 @@ document.addEventListener('mousemove', function(mouse){
     }
 })
 
-clearBtn.addEventListener("click", function(click){
+document.addEventListener("touchmove", function(touch){
+    touch.preventDefault();
+    if(drawOn){
+        mouseX = touch.touches[0].clientX;
+        mouseY = touch.touches[0].clientY;
+        draw();
+    }
+})
+
+clearBtn.addEventListener("click", function(){
     clear();
-    drawOn = false;
+})
+
+slider.addEventListener("touchstart", function(){
+    if(drawOn){
+        toggleDraw();
+        wasOn = true;
+    }
+})
+
+slider.addEventListener("touchend", function(){
+    if(wasOn){
+        wasOn = false;
+        toggleDraw();
+    }
+    radius = slider.value;
+})
+
+slider.addEventListener("mouseup", function(){
+    radius = slider.value;
 })
 
 window.onresize = resize;
