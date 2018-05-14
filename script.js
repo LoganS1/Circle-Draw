@@ -3,6 +3,7 @@ var canvas = document.getElementById("canvas");
 var slider = document.getElementById("slider");
 var on = document.getElementById("on");
 var off = document.getElementById("off");
+var clickToToggle = document.getElementById("clickToToggle");
 var c = canvas.getContext("2d");
 var w = window,
     d = document,
@@ -12,6 +13,7 @@ var w = window,
     y = w.innerHeight|| e.clientHeight|| g.clientHeight;
 var mouseX;
 var mouseY;
+var mobile = false;
 var drawOn = false;
 var wasOn = false;
 var radius = 16;
@@ -21,6 +23,8 @@ canvas.width = x;
 
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
     toggleDraw();
+    mobile = true;
+    clickToToggle.classList.toggle("invisible");
 }
 
 function toggleDraw(){
@@ -41,7 +45,13 @@ function draw(){
 }
 
 canvas.addEventListener("click", function(){
-    toggleDraw();
+    if(!mobile){
+        toggleDraw();
+    }
+})
+
+canvas.addEventListener("ontouchmove", function(e){
+    e.preventDefault();
 })
 
 document.addEventListener('mousemove', function(mouse){
