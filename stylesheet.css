@@ -25,16 +25,22 @@ body {
     position: fixed;
     width: 10%;
     height: 50px;
-    top: 0;
+    top: 4px;
     left: 45%;
     right: 45%;
     outline: none;
     transition: all 0.1s;
     min-width: 60px;
+    box-shadow: 5px 5px 5px darkgrey;
+}
+
+#clear:hover {
+    box-shadow: 3px 3px 3px darkgrey;
 }
 
 #clear:active {
     background-color: darkgrey;
+    box-shadow: none;
 }
 
 #instructions {
@@ -55,10 +61,9 @@ body {
     color: grey;
     position: absolute;
     height: 50px;
-    width: 50%;
+    width: 40%;
     top: 2%;
     right: 0%;
-    left: 50%;
 }
 
 @media only screen and (max-width: 900px){
@@ -81,6 +86,7 @@ body {
 
 .bold {
     font-weight: bold;
+    font-size: 1.1em;
 }
 
 .invisible {
